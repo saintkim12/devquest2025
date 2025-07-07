@@ -1,69 +1,44 @@
-# React + TypeScript + Vite
+## Dev 퀘스트 2025-06-30
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### ✅ Dev 퀘스트 세트 (2025-06-30)
 
-Currently, two official plugins are available:
+**상황:**
+온라인 수업을 듣고 있는 학생입니다. 수업을 들을 때마다 메모를 남기고 싶은데, 수업마다 메모를 나눠 정리할 수 있는 간단한 웹앱이 있었으면 좋겠어요.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**요구사항:**
 
-## Expanding the ESLint configuration
+1. 새로운 수업을 추가하고, 각 수업마다 메모를 따로 기록할 수 있었으면 해요.
+2. 메모는 간단한 텍스트 형태면 충분하지만, 수정과 삭제가 가능해야 해요.
+3. 수업 리스트를 누르면 해당 수업의 메모 목록이 바로 보였으면 좋겠어요. (페이지 이동 없이)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 💡 이 퀘스트가 적합한 이유:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+* **2시간 안에**:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  * 수업 추가/삭제 기능
+  * 메모 작성/수정/삭제 기능
+  * 간단한 리스트 UI (React나 Vue로 쉽게 구성 가능)
+    → 이 정도만 해도 구조, 상태관리, 컴포넌트 분리 연습이 충분함.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* **다음 단계로 나아가기 위한 판단 기준이 명확**:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  * CRUD가 다 되었는가?
+  * 수업과 메모의 관계가 깔끔하게 연결되는가?
+  * 로컬 저장 or 백엔드 연동 여부에 따라 확장 가능 여부 판단 가능.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+### 구현 구조
+- index.html + script.js + localStorage 사용
+- 수업 1개당 메모 1개
+- 삭제 = 메모 내용 제거
+
+### 부족했던 점
+- 수업/메모 관계 애매
+- UI 허전함, CSS 귀찮음
+
+### 다음에 참고할 점
+- 수업 리스트 + 메모 리스트 분리
+- CSS 템플릿 미리 두고 시작하면 좋을 듯
