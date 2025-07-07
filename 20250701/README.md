@@ -1,75 +1,69 @@
-## 🎯 Dev 퀘스트 (2025-07-01)
+# React + TypeScript + Vite
 
-### 🧭 고객 상황
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-저는 매일 해야 할 일이 많은데, 일반적인 TODO 앱은 너무 무거워요.
-오늘 할 일만 빠르게 적고, 완료 여부만 체크할 수 있는 \*\*“하루 집중 TODO 앱”\*\*이 필요해요.
+Currently, two official plugins are available:
 
----
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### ✅ 요구사항 (고객 입장에서)
+## Expanding the ESLint configuration
 
-1. 오늘 날짜를 기준으로, 할 일을 여러 개 등록할 수 있어야 해요.
-2. 완료한 항목은 체크하거나 삭제할 수 있었으면 좋겠어요.
-3. 내일이 되면 자동으로 리스트가 초기화되었으면 해요. (어제 할 일은 필요 없어요)
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
----
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-### 🛠️ 핵심 구현 요소 (2시간 안에 가능)
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
 
-* 할 일 목록 (추가/삭제/완료 표시)
-* localStorage 기반 날짜 비교 로직 (오늘날짜와 다르면 초기화)
-* UI는 단순하게: 텍스트 입력 + 리스트 + 체크박스 or 삭제버튼
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
----
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-### 🧪 도전 포인트 (선택 사항)
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-* 다크모드 토글
-* 오늘 날짜 상단 고정
-* 완료 항목 아래로 내리기
-* 모바일 대응 레이아웃
-
----
-
-## Dev 퀘스트 2025-07-01: 하루 집중 TODO 앱
-
-### 🎯 미션 요구사항 (고객 입장)
-
-1. 오늘 날짜를 기준으로, 할 일을 여러 개 등록할 수 있어야 해요. ✅  
-2. 완료한 항목은 체크하거나 삭제할 수 있었으면 좋겠어요. ✅  
-3. 내일이 되면 자동으로 리스트가 초기화되었으면 해요. (어제 할 일은 필요 없어요) ➖
-
----
-
-### 🛠️ 구현 기능 요약
-
-- 할 일 추가 / 완료 체크 / 삭제 기능 구현  
-- localStorage에 날짜와 리스트를 함께 저장  
-- 페이지 로드시 저장된 날짜와 현재 날짜를 비교해, 다를 경우 리스트 자동 초기화  
-- UI는 입력창, 할 일 목록, 체크박스, 삭제버튼 구성  
-- 완료된 항목은 목록 아래로 이동  
-- 오늘 날짜 상단 고정  
-- 모바일에서도 간단한 반응형 대응
-
----
-
-### ⚠️ 미완료 또는 보류 항목
-
-- ❌ 다크모드 토글: CSS 변경 범위가 커서 이후 템플릿화된 구조에서 적용 고려  
-- ➖ 자동 초기화는 “페이지 진입 시” 기준으로 처리함 (실시간 감지는 아님)
-
----
-
-### ✏️ 다음 미션에 참고할 점
-
-- 상태가 단순히 `idle`, `done` 두 가지지만, 이후 우선순위나 일정 추가 등 상태 확장 시 구조 재설계 필요  
-- UI 초기 구성 및 localStorage 세팅을 빠르게 재사용할 수 있도록 간단한 템플릿화 고려  
-- CSS 개선(다크모드, 전반 스타일링)은 따로 분리해서 실험해도 좋을 듯
-
----
-
-### ⏱️ 작업 시간
-
-- 약 2시간
-
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
