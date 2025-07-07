@@ -130,22 +130,6 @@ function App() {
                 )}
               </div>
             ))}
-            <div className="grid grid-cols-5 px-4 py-2">
-              <div>TailwindCSS 입문</div>
-              <div>
-                <a href="#">https://TailwindCSS-입문.com</a>
-              </div>
-              <div>#CSS #UI</div>
-              <div>2025-07-06</div>
-            </div>
-            <div className="grid grid-cols-5 px-4 py-2">
-              <div>React 정리</div>
-              <div>
-                <a href="#">https://React-정리.com</a>
-              </div>
-              <div>#JSX</div>
-              <div>2025-07-01</div>
-            </div>
             {/* <!-- 필요시 항목 더 추가 --> */}
           </div>
         </div>
